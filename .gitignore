@@ -19,7 +19,7 @@ lib64/
 parts/
 sdist/
 var/
-media/*
+retro/media/*
 parameters.py
 
 *.egg-info/

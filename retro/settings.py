@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'retrospective',
 ]
 
 MIDDLEWARE = [
@@ -62,10 +63,21 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
 ]
+
+PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..')
+SITE_ROOT = PROJECT_ROOT
+
+MEDIA_ROOT = os.path.join(os.path.dirname(SITE_ROOT), '../retro/media')
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(os.path.dirname(SITE_ROOT), 'static')
+STATIC_PATH = STATIC_ROOT
+STATIC_URL = '/static/'
 
 WSGI_APPLICATION = 'retro.wsgi.application'
 
@@ -116,5 +128,3 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-STATIC_URL = '/static/'
