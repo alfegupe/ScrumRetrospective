@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    {% include 'includes/menu.html' %}
+{% endblock %}
+{% block content %}
+    <h1>Crear planificación:</h1>
+    <hr>
+    <div class="content-bordered">
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Guardar">
+        </form>
+    </div>
+    <hr>
+    <a href="{% url 'index' %}" class="btn btn-default btn-sm">
+        <i class="fa fa-reply"></i> Volver
+    </a>
+{% endblock %}

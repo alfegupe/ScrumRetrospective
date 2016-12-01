@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
+{% block nav %}
+    {% include 'includes/menu.html' %}
+{% endblock %}
 {% block content %}
-    <div class="pull-right" style="margin-top: 10px">
-        <a class="btn btn-danger btn-sm text-right" href="{% url 'logout' %}">
-            Salir <i class="fa fa-sign-out"></i>
-        </a>
-    </div>
     <h1>Retrospectiva: {{ retrospective.name }}</h1>
-
+    {% include 'includes/messages.html' %}
     {% if data %}
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
             {% for d in data %}
@@ -50,11 +48,14 @@
                 <li>
                     {{ u.first_name }} {{ u.last_name }}
                     {% if u == request.user %}
-                        <a href="{% url 'retrospective-create' retrospective.id %}" class="btn btn-default btn-xs"> <i class="fa fa-plus-circle"></i> Registrar</a>
+                        <a href="{% url 'retrospective-create' retrospective.id %}?retro={{ retrospective.id }}" class="btn btn-default btn-xs"> <i class="fa fa-plus-circle"></i> Registrar</a>
                     {% endif %}
                 </li>
             {% endfor %}
         </ul>
-
     {% endif %}
+    
+    <a href="{% url 'index' %}" class="btn btn-default btn-sm">
+        <i class="fa fa-reply"></i> Volver
+    </a>
 {% endblock %}

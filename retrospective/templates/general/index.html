@@ -1,24 +1,30 @@
 {% extends "base.html" %}
 
+{% block nav %}
+    {% include 'includes/menu.html' %}
+{% endblock %}
 {% block content %}
-    <div class="pull-right" style="margin-top: 10px">
-        <a class="btn btn-danger btn-sm text-right" href="{% url 'logout' %}">
-            Salir <i class="fa fa-sign-out"></i>
-        </a>
-    </div>
     <h1>Retrospective App <small>Sistemas de información</small></h1>
     <hr>
 
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="panel panel-primary">
-                <div class="panel-heading">Planificaciones</div>
+                <div class="panel-heading">
+                    Planificaciones
+                    <a href="{% url 'planning-create' %}" style="color: #328fca;" title="Crear">
+                        <i class="fa fa-plus-square fa-2x pull-right"></i>
+                    </a>
+                </div>
                 {% if plannings %}
                 <table class="table table-bordered">
                     {% for p in plannings %}
                         <tr>
                             <td>
-                                <a href="#">{{ p.name }}</a>
+                                <a href="{% url 'planning' p.id %}">{{ p.name }}</a>
+                                <a href="{% url 'planning-edit' p.id %}" class="pull-right" title="Editar">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}

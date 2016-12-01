@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    {% include 'includes/menu.html' %}
+{% endblock %}
+{% block content %}
+    <h1>Planificación: {{ planning.name }}</h1>
+    <hr>
+    {% include 'includes/messages.html' %}
+    <div class="content-bordered">
+        {{ planning.content|safe }}
+    </div>
+    <hr>
+    <a href="{% url 'index' %}" class="btn btn-default btn-sm">
+        <i class="fa fa-reply"></i> Volver
+    </a>
+{% endblock %}

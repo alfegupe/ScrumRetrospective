@@ -16,21 +16,6 @@ from .models import Planning, Retrospective, RetrospectiveUser
 from django.contrib.auth.models import User
 
 
-class IndexView(View, LoginRequiredMixin):
-    template = "retrospective/index.html"
-    login_url = 'login'
-
-    def get(self, request, *args, **kwargs):
-        plannings = Planning.objects.all()
-        retrospectives = Retrospective.objects.all()
-
-        context = {
-            'plannings': plannings,
-            'retrospectives': retrospectives
-        }
-        return render(request, self.template, context)
-
-
 class LoginView(View):
     form = LoginForm()
     message = None
@@ -66,12 +51,27 @@ class LogoutView(RedirectView):
         return super(LogoutView, self).get(request, *args, **kwargs)
 
 
-class RetrospectiveDetailView(DetailView, LoginRequiredMixin):
+class IndexView(LoginRequiredMixin, View):
+    template = "general/index.html"
+    login_url = 'login'
+
+    def get(self, request, *args, **kwargs):
+        plannings = Planning.objects.all()
+        retrospectives = Retrospective.objects.all()
+
+        context = {
+            'plannings': plannings,
+            'retrospectives': retrospectives
+        }
+        return render(request, self.template, context)
+
+
+class RetrospectiveDetailView(LoginRequiredMixin, DetailView):
     model = Retrospective
-    template = "retrospective/retrospective_detail.html"
+    template_name = "retrospective/retrospective_detail.html"
     slug_field = "id"
     slug_url_kwarg = "id_retro"
-    login_url = 'login'
+    login_url = "login"
 
     def get_context_data(self, **kwargs):
         context = super(RetrospectiveDetailView, self).get_context_data(**kwargs)
@@ -79,14 +79,14 @@ class RetrospectiveDetailView(DetailView, LoginRequiredMixin):
             retrospective=self.object
         )
         data_off = User.objects.exclude(
-            id__in=RetrospectiveUser.objects.values_list('id', flat=True)
+            id__in=RetrospectiveUser.objects.values_list('user', flat=True)
         )
         context['data'] = data
         context['data_off'] = data_off
         return context
 
 
-class RetrospectiveUserCreateView(CreateView, LoginRequiredMixin):
+class RetrospectiveUserCreateView(LoginRequiredMixin, CreateView):
     model = RetrospectiveUser
     fields = ['good', 'bad', 'suggestions']
     slug_field = 'id'
@@ -100,13 +100,21 @@ class RetrospectiveUserCreateView(CreateView, LoginRequiredMixin):
             form.instance.user = self.request.user
             form.instance.retrospective = Retrospective.objects.get(
                 id=self.kwargs['id_retro'])
+            messages.success(
+                self.request, 'Retrospectiva guardada correctamente.'
+            )
             return super(RetrospectiveUserCreateView, self).form_valid(form)
         except Exception as e:
             print e.message
             return super(RetrospectiveUserCreateView, self).form_invalid(form)
 
+    def get_success_url(self):
+        if 'retro' in self.request.GET:
+            retro = self.request.GET['retro']
+            return reverse_lazy('retrospective', kwargs={'id_retro': retro})
 
-class RetrospectiveUserEditView(UpdateView, LoginRequiredMixin):
+
+class RetrospectiveUserEditView(LoginRequiredMixin, UpdateView):
     model = RetrospectiveUser
     fields = ['good', 'bad', 'suggestions']
     slug_field = 'id'
@@ -114,7 +122,66 @@ class RetrospectiveUserEditView(UpdateView, LoginRequiredMixin):
     login_url = 'login'
     template_name = 'retrospective/retrospective_edit.html'
 
+    def form_valid(self, form):
+        try:
+            messages.success(
+                self.request, 'Retrospectiva actualizada correctamente.'
+            )
+            return super(RetrospectiveUserEditView, self).form_valid(form)
+        except Exception as e:
+            print e.message
+            return super(RetrospectiveUserEditView, self).form_invalid(form)
+
     def get_success_url(self):
-        if self.request.GET['retro']:
+        if 'retro' in self.request.GET:
             retro = self.request.GET['retro']
             return reverse_lazy('retrospective', kwargs={'id_retro': retro})
+
+
+class PlanningDetailView(LoginRequiredMixin, DetailView):
+    model = Planning
+    template_name = "planning/planning_detail.html"
+    slug_field = "id"
+    slug_url_kwarg = "id_plan"
+    login_url = "login"
+
+
+class PlanningCreateView(LoginRequiredMixin, CreateView):
+    model = Planning
+    fields = ['name', 'content']
+    template_name = 'planning/planning_create.html'
+    success_url = reverse_lazy('index')
+    login_url = 'login'
+
+    def form_valid(self, form):
+        try:
+            messages.success(
+                self.request, 'Planificación guardada correctamente.'
+            )
+            return super(PlanningCreateView, self).form_valid(form)
+        except Exception as e:
+            print e.message
+            return super(PlanningCreateView, self).form_invalid(form)
+
+
+class PlanningEditView(LoginRequiredMixin, UpdateView):
+    model = Planning
+    fields = ['name', 'content']
+    slug_field = 'id'
+    slug_url_kwarg = 'id_plan'
+    login_url = 'login'
+    template_name = 'planning/planning_edit.html'
+
+    def form_valid(self, form):
+        try:
+            messages.success(
+                self.request, 'Planificación actualizada correctamente.'
+            )
+            return super(PlanningEditView, self).form_valid(form)
+        except Exception as e:
+            print e.message
+            return super(PlanningEditView, self).form_invalid(form)
+
+    def get_success_url(self):
+        retro = self.object.id
+        return reverse_lazy('planning', kwargs={'id_plan': retro})
