@@ -98,11 +98,12 @@ class RetrospectiveUserCreateView(CreateView, LoginRequiredMixin):
     def form_valid(self, form):
         try:
             form.instance.user = self.request.user
-            form.instance.retrospective = self.model
+            form.instance.retrospective = Retrospective.objects.get(
+                id=self.kwargs['id_retro'])
             return super(RetrospectiveUserCreateView, self).form_valid(form)
         except Exception as e:
             print e.message
-            return super(RetrospectiveUserCreateView, self).form_valid(form)
+            return super(RetrospectiveUserCreateView, self).form_invalid(form)
 
 
 class RetrospectiveUserEditView(UpdateView, LoginRequiredMixin):
@@ -112,4 +113,8 @@ class RetrospectiveUserEditView(UpdateView, LoginRequiredMixin):
     slug_url_kwarg = 'id_retro'
     login_url = 'login'
     template_name = 'retrospective/retrospective_edit.html'
-    success_url = reverse_lazy('index')  # redirect to retrospective detail
+
+    def get_success_url(self):
+        if self.request.GET['retro']:
+            retro = self.request.GET['retro']
+            return reverse_lazy('retrospective', kwargs={'id_retro': retro})

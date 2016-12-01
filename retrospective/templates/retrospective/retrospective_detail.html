@@ -17,7 +17,7 @@
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ d.user }}" aria-expanded="false" aria-controls="collapseOne">
                               <strong>Retrospectiva {{ d.user }}</strong>
                                 {% if d.user == request.user %}
-                                    <a href="{% url 'retrospective-edit' d.retrospective_id %}" class="pull-right"> <i class="fa fa-edit"> Editar</i> </a>
+                                    <a href="{% url 'retrospective-edit' d.id %}?retro={{ retrospective.id }}" class="pull-right"> <i class="fa fa-edit"> Editar</i> </a>
                                 {% endif %}
                             </a>
                         </h3>
