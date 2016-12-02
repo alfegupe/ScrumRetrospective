@@ -19,18 +19,20 @@
                     </h4>
                 </div>
                 {% if plannings %}
-                <table class="table table-bordered">
-                    {% for p in plannings %}
-                        <tr>
-                            <td>
-                                <a href="{% url 'planning' p.id %}">{{ p.name }}</a>
-                                <a href="{% url 'planning-edit' p.id %}" class="pull-right" title="Editar">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
+                    <div style="max-height: 500px; overflow: auto">
+                        <table class="table table-bordered">
+                            {% for p in plannings %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'planning' p.id %}">{{ p.name }}</a>
+                                        <a href="{% url 'planning-edit' p.id %}" class="pull-right" title="Editar">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 {% else %}
                     <div class="panel-body text-danger text-center">
                         No existen planificaciones registradas.
@@ -49,18 +51,20 @@
                     </h4>
                 </div>
                 {% if retrospectives %}
-                <table class="table table-bordered">
-                    {% for r in retrospectives %}
-                        <tr>
-                            <td>
-                                <a href="{% url 'retrospective' id_retro=r.id %}">{{ r.name }}</a>
-                                <a href="{% url 'retrospective-edit' r.id %}" class="pull-right" title="Editar">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
+                    <div style="max-height: 500px; overflow: auto">
+                        <table class="table table-bordered">
+                            {% for r in retrospectives %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'retrospective' id_retro=r.id %}">{{ r.name }}</a>
+                                        <a href="{% url 'retrospective-edit' r.id %}" class="pull-right" title="Editar">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 {% else %}
                     <div class="panel-body text-danger text-center">
                         No existen retrospectivas registradas.

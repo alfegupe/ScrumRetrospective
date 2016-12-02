@@ -147,12 +147,17 @@ USE_L10N = True
 
 USE_TZ = True
 
-# TINYMCE_DEFAULT_CONFIG = {
-#     'plugins': "table,spellchecker,paste,searchreplace",
-#     'theme': "advanced",
-#     'cleanup_on_startup': True,
-#     'custom_undo_redo_levels': 10,
-# }
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': 'spellchecker,paste,searchreplace',
+    'theme': 'advanced',
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+    'width': '100%',
+    'height': '350px',
+    'fontsize_formats': '8pt 10pt 12pt 14pt 18pt 24pt 36pt',
+    'font_formats': 'Arial=arial,helvetica,sans-serif;',
+    'font-size': '18px;'
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/

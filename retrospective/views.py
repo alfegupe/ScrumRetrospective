@@ -56,8 +56,8 @@ class IndexView(LoginRequiredMixin, View):
     login_url = 'login'
 
     def get(self, request, *args, **kwargs):
-        plannings = Planning.objects.all()
-        retrospectives = Retrospective.objects.all()
+        plannings = Planning.objects.all().order_by('-id')
+        retrospectives = Retrospective.objects.all().order_by('-id')
 
         context = {
             'plannings': plannings,

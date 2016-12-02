@@ -48,3 +48,7 @@ span.txt, .content-bordered{
     border: 1px #dfdfeb solid;
     border-radius: 5px;
 }
+
+.txt_content{
+    font-size: larger;
+}
