@@ -8,6 +8,7 @@ DBPORT = ''
 # Project config
 DJ_SECRET_KEY = ''
 DJ_DEBUG = False
+DJ_ALLOWED_HOSTS = ['*']
 
 # Email config
 DJ_EMAIL_HOST = 'smtp.gmail.com'
