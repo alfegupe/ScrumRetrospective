@@ -11,10 +11,12 @@
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Planificaciones
-                    <a href="{% url 'planning-create' %}" style="color: #328fca;" title="Crear">
+                    <a href="{% url 'planning-create' %}" style="color: #FFF; padding-top: 10px !important;" title="Crear">
                         <i class="fa fa-plus-square fa-2x pull-right"></i>
                     </a>
+                    <h4>
+                        Planificaciones
+                    </h4>
                 </div>
                 {% if plannings %}
                 <table class="table table-bordered">
@@ -39,10 +41,12 @@
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Retrospectivas
-                    <a href="{% url 'retrospective-create' %}" style="color: #328fca;" title="Crear">
+                    <a href="{% url 'retrospective-create' %}" style="color: #FFF; padding-top: 10px !important;" title="Crear">
                         <i class="fa fa-plus-square fa-2x pull-right"></i>
                     </a>
+                    <h4>
+                        Retrospectivas
+                    </h4>
                 </div>
                 {% if retrospectives %}
                 <table class="table table-bordered">

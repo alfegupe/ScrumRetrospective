@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from parameters import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,10 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=j_yk539b5uny_f0xss3_)!6qw+xdv5^$&xn7f=g16o!3*r5hl'
+SECRET_KEY = DJ_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = DJ_DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -86,10 +87,21 @@ WSGI_APPLICATION = 'retro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': DBNAME,
+        'USER': DBUSER,
+        'PASSWORD': DBPASSWORD,
+        'HOST': DBHOST,
+        'PORT': DBPORT,
     }
 }
 
@@ -111,6 +123,15 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+# Email config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = DJ_EMAIL_HOST
+EMAIL_PORT = DJ_EMAIL_PORT
+EMAIL_HOST_USER = DJ_EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = DJ_EMAIL_HOST_PASSWORD
 
 
 # Internationalization
