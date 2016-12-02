@@ -68,7 +68,7 @@ class IndexView(LoginRequiredMixin, View):
 
 class RetrospectiveDetailView(LoginRequiredMixin, DetailView):
     model = Retrospective
-    template_name = "retrospective/retrospective_detail.html"
+    template_name = "retrospective_user/retrospective_detail.html"
     slug_field = "id"
     slug_url_kwarg = "id_retro"
     login_url = "login"
@@ -79,7 +79,7 @@ class RetrospectiveDetailView(LoginRequiredMixin, DetailView):
             retrospective=self.object
         )
         data_off = User.objects.exclude(
-            id__in=RetrospectiveUser.objects.values_list('user', flat=True)
+            id__in=data.values_list('user', flat=True)
         )
         context['data'] = data
         context['data_off'] = data_off
@@ -92,7 +92,7 @@ class RetrospectiveUserCreateView(LoginRequiredMixin, CreateView):
     slug_field = 'id'
     slug_url_kwarg = 'id_retro'
     login_url = 'login'
-    template_name = 'retrospective/retrospective_create.html'
+    template_name = 'retrospective_user/retrospective_create.html'
     success_url = reverse_lazy('index')
 
     def form_valid(self, form):
@@ -120,7 +120,7 @@ class RetrospectiveUserEditView(LoginRequiredMixin, UpdateView):
     slug_field = 'id'
     slug_url_kwarg = 'id_retro'
     login_url = 'login'
-    template_name = 'retrospective/retrospective_edit.html'
+    template_name = 'retrospective_user/retrospective_edit.html'
 
     def form_valid(self, form):
         try:
@@ -163,6 +163,10 @@ class PlanningCreateView(LoginRequiredMixin, CreateView):
             print e.message
             return super(PlanningCreateView, self).form_invalid(form)
 
+    def get_success_url(self):
+        plan = self.object.id
+        return reverse_lazy('planning', kwargs={'id_plan': plan})
+
 
 class PlanningEditView(LoginRequiredMixin, UpdateView):
     model = Planning
@@ -183,5 +187,50 @@ class PlanningEditView(LoginRequiredMixin, UpdateView):
             return super(PlanningEditView, self).form_invalid(form)
 
     def get_success_url(self):
+        plan = self.object.id
+        return reverse_lazy('planning', kwargs={'id_plan': plan})
+
+
+class RetrospectiveCreateView(LoginRequiredMixin, CreateView):
+    model = Retrospective
+    fields = ['name']
+    template_name = 'retrospective/retrospective_create.html'
+    success_url = reverse_lazy('index')
+    login_url = 'login'
+
+    def form_valid(self, form):
+        try:
+            messages.success(
+                self.request, 'Retrospectiva guardada correctamente.'
+            )
+            return super(RetrospectiveCreateView, self).form_valid(form)
+        except Exception as e:
+            print e.message
+            return super(RetrospectiveCreateView, self).form_invalid(form)
+
+    def get_success_url(self):
         retro = self.object.id
-        return reverse_lazy('planning', kwargs={'id_plan': retro})
+        return reverse_lazy('retrospective', kwargs={'id_retro': retro})
+
+
+class RetrospectiveEditView(LoginRequiredMixin, UpdateView):
+    model = Retrospective
+    fields = ['name']
+    slug_field = 'id'
+    slug_url_kwarg = 'id_retro'
+    login_url = 'login'
+    template_name = 'retrospective/retrospective_edit.html'
+
+    def form_valid(self, form):
+        try:
+            messages.success(
+                self.request, 'Retrospectiva actualizada correctamente.'
+            )
+            return super(RetrospectiveEditView, self).form_valid(form)
+        except Exception as e:
+            print e.message
+            return super(RetrospectiveEditView, self).form_invalid(form)
+
+    def get_success_url(self):
+        retro = self.object.id
+        return reverse_lazy('retrospective', kwargs={'id_retro': retro})

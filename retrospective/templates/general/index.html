@@ -38,13 +38,21 @@
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="panel panel-primary">
-                <div class="panel-heading">Retrospectivas</div>
+                <div class="panel-heading">
+                    Retrospectivas
+                    <a href="{% url 'retrospective-create' %}" style="color: #328fca;" title="Crear">
+                        <i class="fa fa-plus-square fa-2x pull-right"></i>
+                    </a>
+                </div>
                 {% if retrospectives %}
                 <table class="table table-bordered">
                     {% for r in retrospectives %}
                         <tr>
                             <td>
                                 <a href="{% url 'retrospective' id_retro=r.id %}">{{ r.name }}</a>
+                                <a href="{% url 'retrospective-edit' r.id %}" class="pull-right" title="Editar">
+                                    <i class="fa fa-edit"></i>
+                                </a>
                             </td>
                         </tr>
                     {% endfor %}

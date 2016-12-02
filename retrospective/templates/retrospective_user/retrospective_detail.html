@@ -15,7 +15,7 @@
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ d.user }}" aria-expanded="false" aria-controls="collapseOne">
                               <strong>Retrospectiva {{ d.user }}</strong>
                                 {% if d.user == request.user %}
-                                    <a href="{% url 'retrospective-edit' d.id %}?retro={{ retrospective.id }}" class="pull-right"> <i class="fa fa-edit"> Editar</i> </a>
+                                    <a href="{% url 'retrospective-user-edit' d.id %}?retro={{ retrospective.id }}" class="pull-right"> <i class="fa fa-edit"> Editar</i> </a>
                                 {% endif %}
                             </a>
                         </h3>
@@ -48,13 +48,13 @@
                 <li>
                     {{ u.first_name }} {{ u.last_name }}
                     {% if u == request.user %}
-                        <a href="{% url 'retrospective-create' retrospective.id %}?retro={{ retrospective.id }}" class="btn btn-default btn-xs"> <i class="fa fa-plus-circle"></i> Registrar</a>
+                        <a href="{% url 'retrospective-user-create' retrospective.id %}?retro={{ retrospective.id }}" class="btn btn-default btn-xs"> <i class="fa fa-plus-circle"></i> Registrar</a>
                     {% endif %}
                 </li>
             {% endfor %}
         </ul>
     {% endif %}
-    
+
     <a href="{% url 'index' %}" class="btn btn-default btn-sm">
         <i class="fa fa-reply"></i> Volver
     </a>

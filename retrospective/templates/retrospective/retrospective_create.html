@@ -5,23 +5,16 @@
 {% endblock %}
 {% block content %}
     <h1>Crear retrospectiva:</h1>
-    <form action="" name="register_retro_user" method="post" novalidate>
-        {% csrf_token %}
-        <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-4">
-                <h2>Lo bueno:</h2>
-                {{ form.good }}
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">
-                <h2>Lo malo:</h2>
-                {{ form.bad }}
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-4">
-                <h2>Sugerencias:</h2>
-                {{ form.suggestions }}
-            </div>
-        </div>
-        <hr>
-        <input class="btn btn-success" type="submit" value="Guardar" />
-    </form>
+    <hr>
+    <div class="content-bordered">
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Guardar">
+        </form>
+    </div>
+    <hr>
+    <a href="{% url 'index' %}" class="btn btn-default btn-sm">
+        <i class="fa fa-reply"></i> Volver
+    </a>
 {% endblock %}
