@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    {% include 'includes/menu.html' %}
+{% endblock %}
+{% block content %}
+    <h1>
+        {{ sprint.name }}
+        <small style="font-size: small">
+            <i class="fa fa-calendar"></i> {{ sprint.date_start }} - {{ sprint.date_finish }}.
+        </small>
+    </h1>
+    <hr>
+    {% include 'includes/messages.html' %}
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-8 left-column">
+            <h4>Datos de cierre del Sprint.</h4>
+            <div class="content-bordered">
+                {{ sprint.planning|safe }}
+            </div>
+            <hr>
+            {% if global_tasks %}
+                <h4>Tareas individuales <small style="font-size: small">Todos los usuarios</small></h4>
+                <div style="max-height: 500px; overflow: auto">
+                    <button class="btn btn-default btn-sm pull-right clipboard" data-clipboard-text="{{ global_tasks|safe }}">
+                        Copiar HTML <i class="fa fa-code" title="Copiar al portapapeles"></i>
+                    </button>
+                    <div class="content-bordered clipboard">
+                        {{ global_tasks|safe }}
+                    </div>
+                </div>
+            {% endif %}<br>
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-4">
+            {% if data %}
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    {% for d in data %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="{{ d.id }}">
+                                <h3 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ d.user }}" aria-expanded="false" aria-controls="collapseOne">
+                                      <strong>Tareas individuales {{ d.user }}</strong>
+                                        {% if d.user == request.user %}
+                                            <a href="{% url 'sprint-tasks-user-edit' d.id %}?sprint={{ sprint.id }}" class="pull-right"> <i class="fa fa-edit"> Editar</i> </a>
+                                        {% endif %}
+                                    </a>
+                                </h3>
+                            </div>
+                            <div id="{{ d.user }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{ d.id }}">
+                                <button class="btn btn-default btn-sm pull-right clipboard" data-clipboard-text="{{ d.tasks|safe }}">
+                                    Copiar HTML <i class="fa fa-code" title="Copiar al portapapeles"></i>
+                                </button>
+                                <div class="panel-body" style="word-wrap: break-word;">
+                                    {{ d.tasks | safe }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if data_off %}
+                <h4>Usuarios que aun no diligencian:</h4>
+                <ul>
+                    {% for u in data_off %}
+                        <li>
+                            {{ u.first_name }} {{ u.last_name }}
+                            {% if u == request.user %}
+                                <a href="{% url 'sprint-tasks-user-create' sprint.id %}?sprint={{ sprint.id }}" class="btn btn-default btn-xs"> <i class="fa fa-plus-circle"></i> Registrar</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <hr>
+    <a href="{% url 'index' %}" class="btn btn-default btn-sm">
+        <i class="fa fa-reply"></i> Volver
+    </a>
+{% endblock %}

@@ -8,7 +8,7 @@
     <hr>
 
     <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-4 col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <a href="{% url 'planning-create' %}" style="color: #FFF; padding-top: 10px !important;" title="Crear">
@@ -40,7 +40,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-4 col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <a href="{% url 'retrospective-create' %}" style="color: #FFF; padding-top: 10px !important;" title="Crear">
@@ -68,6 +68,45 @@
                 {% else %}
                     <div class="panel-body text-danger text-center">
                         No existen retrospectivas registradas.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a href="{% url 'sprint-create' %}" style="color: #FFF; padding-top: 10px !important;" title="Crear">
+                        <i class="fa fa-plus-square fa-2x pull-right"></i>
+                    </a>
+                    <h4>
+                        Sprints y tareas individuales
+                    </h4>
+                </div>
+                {% if retrospectives %}
+                    <div style="max-height: 500px; overflow: auto">
+                        <table class="table table-bordered">
+                            {% for s in sprints %}
+                                <tr>
+                                    <td>
+                                        <a href="{% url 'sprint' id_sprint=s.id %}">
+                                            {{ s.name }}
+                                            <small style="color: #9d9d9d; font-size: x-small">
+                                                {{ s.date_start|date:"d/M/Y" }} - {{ s.date_finish|date:"d/M/Y" }}.
+                                            </small>
+                                        </a>
+                                        <div class="pull-right">
+                                            <a href="{% url 'sprint-edit' s.id %}" title="Editar">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                {% else %}
+                    <div class="panel-body text-danger text-center">
+                        No existen Sprints registrados.
                     </div>
                 {% endif %}
             </div>

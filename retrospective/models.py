@@ -6,6 +6,17 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 from tinymce.widgets import TinyMCE
+from django import forms
+
+
+class Sprint(models.Model):
+    name = models.CharField(max_length=250)
+    date_start = models.DateField()
+    date_finish = models.DateField()
+    planning = HTMLField()
+
+    def __unicode__(self):
+        return self.name
 
 
 class Planning(models.Model):
@@ -43,3 +54,17 @@ class RetrospectiveUser(models.Model):
 
     def __unicode__(self):
         return self.retrospective.name + ': ' + self.user.username
+
+
+class TaskSprintUser(models.Model):
+    sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tasks = HTMLField()
+
+    class Meta:
+        unique_together = (('sprint', 'user'),)
+        verbose_name = 'Tareas usuario por Sprint'
+        verbose_name_plural = 'Tareas usuarios por Sprint'
+
+    def __unicode__(self):
+        return self.sprint.name + ': ' + self.user.username

@@ -47,8 +47,14 @@ span.txt, .content-bordered{
     padding: 10px;
     border: 1px #dfdfeb solid;
     border-radius: 5px;
+    background-color: rgba(252, 252, 255, 0.15);
+    word-wrap: break-word;
 }
 
 .txt_content{
     font-size: larger;
+}
+
+.left-column{
+    border-right: 1px solid #e0e0e0;
 }

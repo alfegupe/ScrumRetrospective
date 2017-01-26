@@ -11,8 +11,10 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, \
     RedirectView, View, FormView
 from django.views.generic.edit import UpdateView
-from .forms import LoginForm, UpdateDataUserForm, UpdatePasswordUserForm
-from .models import Planning, Retrospective, RetrospectiveUser
+from .forms import LoginForm, UpdateDataUserForm, UpdatePasswordUserForm, \
+    SprintForm
+from .models import Planning, Retrospective, RetrospectiveUser, Sprint, \
+    TaskSprintUser
 from django.contrib.auth.models import User
 
 
@@ -56,10 +58,12 @@ class IndexView(LoginRequiredMixin, View):
     login_url = 'login'
 
     def get(self, request, *args, **kwargs):
+        sprints = Sprint.objects.all().order_by('-id')
         plannings = Planning.objects.all().order_by('-id')
         retrospectives = Retrospective.objects.all().order_by('-id')
 
         context = {
+            'sprints': sprints,
             'plannings': plannings,
             'retrospectives': retrospectives
         }
@@ -282,3 +286,125 @@ class RetrospectiveEditView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         retro = self.object.id
         return reverse_lazy('retrospective', kwargs={'id_retro': retro})
+
+
+class SprintDetailView(LoginRequiredMixin, DetailView):
+    model = Sprint
+    template_name = "sprint/sprint_detail.html"
+    slug_field = "id"
+    slug_url_kwarg = "id_sprint"
+    login_url = "login"
+
+    def get_context_data(self, **kwargs):
+        context = super(SprintDetailView, self).get_context_data(**kwargs)
+        data = TaskSprintUser.objects.filter(
+            sprint=self.object
+        )
+        data_off = User.objects.exclude(
+            id__in=data.values_list('user', flat=True)
+        )
+        global_tasks = ''
+        if data:
+            for usr in data:
+                global_tasks += usr.tasks
+            context['global_tasks'] = global_tasks
+        context['data'] = data
+        context['data_off'] = data_off
+        return context
+
+
+class SprintCreateView(LoginRequiredMixin, CreateView):
+    model = Sprint
+    form_class = SprintForm
+    template_name = 'sprint/sprint_create.html'
+    success_url = reverse_lazy('index')
+    login_url = 'login'
+
+    def form_valid(self, form):
+        try:
+            messages.success(
+                self.request, 'Sprint creado correctamente.'
+            )
+            return super(SprintCreateView, self).form_valid(form)
+        except Exception as e:
+            print e.message
+            return super(SprintCreateView, self).form_invalid(form)
+
+    def get_success_url(self):
+        sprint = self.object.id
+        return reverse_lazy('sprint', kwargs={'id_sprint': sprint})
+
+
+class SprintEditView(LoginRequiredMixin, UpdateView):
+    model = Sprint
+    form_class = SprintForm
+    slug_field = 'id'
+    slug_url_kwarg = 'id_sprint'
+    login_url = 'login'
+    template_name = 'sprint/sprint_edit.html'
+
+    def form_valid(self, form):
+        try:
+            messages.success(
+                self.request, 'Sprint actualizado correctamente.'
+            )
+            return super(SprintEditView, self).form_valid(form)
+        except Exception as e:
+            print e.message
+            return super(SprintEditView, self).form_invalid(form)
+
+    def get_success_url(self):
+        sprint = self.object.id
+        return reverse_lazy('sprint', kwargs={'id_sprint': sprint})
+
+
+class SprintTasksUserCreateView(LoginRequiredMixin, CreateView):
+    model = TaskSprintUser
+    fields = ['tasks', ]
+    slug_field = 'id'
+    slug_url_kwarg = 'id_sprint'
+    login_url = 'login'
+    template_name = 'sprint_tasks/sprint_tasks_create.html'
+    success_url = reverse_lazy('index')
+
+    def form_valid(self, form):
+        try:
+            form.instance.user = self.request.user
+            form.instance.sprint = Sprint.objects.get(
+                id=self.kwargs['id_sprint'])
+            messages.success(
+                self.request, 'Tareas guardadas correctamente.'
+            )
+            return super(SprintTasksUserCreateView, self).form_valid(form)
+        except Exception as e:
+            print e.message
+            return super(SprintTasksUserCreateView, self).form_invalid(form)
+
+    def get_success_url(self):
+        if 'sprint' in self.request.GET:
+            sprint = self.request.GET['sprint']
+            return reverse_lazy('sprint', kwargs={'id_sprint': sprint})
+
+
+class SprintTasksUserEditView(LoginRequiredMixin, UpdateView):
+    model = TaskSprintUser
+    fields = ['tasks', ]
+    slug_field = 'id'
+    slug_url_kwarg = 'id_sprint'
+    login_url = 'login'
+    template_name = 'sprint_tasks/sprint_tasks_edit.html'
+
+    def form_valid(self, form):
+        try:
+            messages.success(
+                self.request, 'Tareas actualizadas correctamente.'
+            )
+            return super(SprintTasksUserEditView, self).form_valid(form)
+        except Exception as e:
+            print e.message
+            return super(SprintTasksUserEditView, self).form_invalid(form)
+
+    def get_success_url(self):
+        if 'sprint' in self.request.GET:
+            sprint = self.request.GET['sprint']
+            return reverse_lazy('sprint', kwargs={'id_sprint': sprint})

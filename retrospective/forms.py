@@ -68,3 +68,24 @@ class UpdatePasswordUserForm(forms.Form):
         if pass1 != pass2:
             raise forms.ValidationError('Los passwords no coinciden.')
         return self.cleaned_data
+
+
+class SprintForm(forms.ModelForm):
+
+    class Meta:
+        model = Sprint
+        fields = ['name', 'date_start', 'date_finish', 'planning']
+        widgets = {
+            'name': forms.TextInput(
+                attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'date_start': forms.TextInput(
+                attrs={
+                    'class': 'form-control datepicker',
+                    'placeholder': 'Fecha inicio DD/MM/YYY ó YYY-MM-DD'
+                }),
+            'date_finish': forms.TextInput(
+                attrs={
+                    'class': 'form-control datepicker',
+                    'placeholder': 'Fecha fin DD/MM/YYY ó YYY-MM-DD'
+                }),
+        }

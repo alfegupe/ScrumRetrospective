@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    {% include 'includes/menu.html' %}
+{% endblock %}
+{% block content %}
+    <h1>Registrando tareas individuales:</h1>
+    <form action="" name="register_retro_user" method="post" novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <h2>Tareas:</h2>
+                {{ form.tasks }}
+            </div>
+        </div>
+        <hr>
+        <input class="btn btn-success" type="submit" value="Guardar" />
+    </form>
+{% endblock %}
