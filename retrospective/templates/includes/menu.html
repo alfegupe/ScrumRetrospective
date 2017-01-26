@@ -1,11 +1,20 @@
-<div class="pull-right" style="margin-top: 10px">
-    <a class="btn btn-primary btn-sm text-right" href="{% url 'index' %}">
-        <i class="fa fa-home"></i> Inicio
-    </a>
-    <a class="btn btn-primary btn-sm text-right" href="{% url 'profile' user.username %}">
-        <i class="fa fa-user"></i> Perfil
-    </a>
-    <a class="btn btn-danger btn-sm text-right" href="{% url 'logout' %}">
-        Salir <i class="fa fa-sign-out"></i>
-    </a>
+<div class="text-right" style="margin-top: 10px">
+    <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 text-left">
+            <div class="logo">
+                <i class="fa fa-handshake-o fa-5x"></i><br>RetroApp
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-10 col-sm-10 text-right" style="vertical-align: middle">
+            <a class="btn btn-primary btn-sm" href="{% url 'index' %}">
+                <i class="fa fa-home"></i> Inicio
+            </a>
+            <a class="btn btn-primary btn-sm" href="{% url 'profile' user.username %}">
+                <i class="fa fa-user"></i> Perfil
+            </a>
+            <a class="btn btn-danger btn-sm" href="{% url 'logout' %}">
+                Salir <i class="fa fa-sign-out"></i>
+            </a>
+        </div>
+    </div>
 </div>

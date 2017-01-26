@@ -3,6 +3,22 @@ body{
     background-color: rgba(234, 234, 246, 0.43);
 }
 
+.logo{
+    /*float: left;*/
+    /*position: static;*/
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+    width: 110px;
+    height: 100px;
+    border: 1px solid #000000;
+    color: #000000;
+    padding: 3px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
 @media (min-width: 1300px) {
   .container {
     width: 1200px;
