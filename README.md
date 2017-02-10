@@ -1,5 +1,5 @@
 # Retrospective
-A basic Scrum Retrospective management tool.
+A basic Scrum Retrospective and Planning management tool.
 ### Libraries
 - Django 1.10.3
 - Django-tinymce 2.4.0

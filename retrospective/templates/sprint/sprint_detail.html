@@ -22,7 +22,7 @@
             {% if global_tasks %}
                 <h4>Tareas individuales <small style="font-size: small">Todos los usuarios</small></h4>
                 <div style="max-height: 500px; overflow: auto">
-                    <button class="btn btn-default btn-sm pull-right clipboard" data-clipboard-text="{{ global_tasks|safe }}">
+                    <button class="btn btn-default btn-sm pull-right clipboard" data-clipboard-text='{{ global_tasks }}'>
                         Copiar HTML <i class="fa fa-code" title="Copiar al portapapeles"></i>
                     </button>
                     <div class="content-bordered clipboard">
@@ -47,7 +47,7 @@
                                 </h3>
                             </div>
                             <div id="{{ d.user }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{ d.id }}">
-                                <button class="btn btn-default btn-sm pull-right clipboard" data-clipboard-text="{{ d.tasks|safe }}">
+                                <button class="btn btn-default btn-sm pull-right clipboard" data-clipboard-text='{{ d.tasks }}'>
                                     Copiar HTML <i class="fa fa-code" title="Copiar al portapapeles"></i>
                                 </button>
                                 <div class="panel-body" style="word-wrap: break-word;">

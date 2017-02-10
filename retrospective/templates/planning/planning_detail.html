@@ -7,7 +7,7 @@
     <h1>Planificación: {{ planning.name }}</h1>
     <hr>
     {% include 'includes/messages.html' %}
-    <button class="btn btn-default btn-sm pull-right clipboard" data-clipboard-text="{{ planning.content|safe }}">
+    <button class="btn btn-default btn-sm pull-right clipboard" data-clipboard-text='{{ planning.content }}'>
         Copiar HTML <i class="fa fa-code" title="Copiar al portapapeles"></i>
     </button>
     <div class="content-bordered">
