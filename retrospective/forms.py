@@ -89,3 +89,18 @@ class SprintForm(forms.ModelForm):
                     'placeholder': 'Fecha fin DD/MM/YYY ó YYY-MM-DD'
                 }),
         }
+
+
+class RetrospectiveUserForm(forms.ModelForm):
+    good = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 'placeholder': 'Usuario'})
+    )
+    bad = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control', 'placeholder': 'Contraseña'}),
+    )
+    suggestions = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control', 'placeholder': 'Contraseña'}),
+    )

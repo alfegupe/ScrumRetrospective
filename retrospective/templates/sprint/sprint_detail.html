@@ -13,7 +13,7 @@
     <hr>
     {% include 'includes/messages.html' %}
     <div class="row">
-        <div class="col-lg-9 col-md-9 col-sm-8 left-column">
+        <div class="col-lg-8 col-md-8 col-sm-8 left-column">
             <h4>Datos de cierre del Sprint.</h4>
             <div class="content-bordered">
                 {{ sprint.planning|safe }}
@@ -31,7 +31,7 @@
                 </div>
             {% endif %}<br>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-4">
+        <div class="col-lg-4 col-md-4 col-sm-4">
             {% if data %}
                 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                     {% for d in data %}

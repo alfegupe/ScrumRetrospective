@@ -207,6 +207,7 @@ class PlanningCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         try:
+            print self.request
             messages.success(
                 self.request, 'Planificación guardada correctamente.'
             )
