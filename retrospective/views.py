@@ -130,8 +130,8 @@ class RetrospectiveDetailView(LoginRequiredMixin, DetailView):
         data = RetrospectiveUser.objects.filter(
             retrospective=self.object
         )
-        data_off = User.objects.exclude(
-            id__in=data.values_list('user', flat=True)
+        data_off = User.objects.filter(is_active=True).exclude(
+            pk__in=data.values_list('user', flat=True)
         )
         context['data'] = data
         context['data_off'] = data_off
@@ -301,7 +301,7 @@ class SprintDetailView(LoginRequiredMixin, DetailView):
         data = TaskSprintUser.objects.filter(
             sprint=self.object
         )
-        data_off = User.objects.exclude(
+        data_off = User.objects.filter(is_active=True).exclude(
             id__in=data.values_list('user', flat=True)
         )
         global_tasks = ''
