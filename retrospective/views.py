@@ -131,7 +131,7 @@ class RetrospectiveDetailView(LoginRequiredMixin, DetailView):
             retrospective=self.object
         )
         data_off = User.objects.filter(is_active=True).exclude(
-            pk__in=data.values_list('user', flat=True)
+            id__in=data.values_list('user', flat=True)
         )
         context['data'] = data
         context['data_off'] = data_off
