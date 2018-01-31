@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block nav %}
+{% load static %}
     <div class="text-center">
         <h1>Planner App</h1>
         <div class="logo">
-            <i class="fa fa-handshake-o fa-5x"></i><br>PlannerApp
+            <img src="{% static 'logo.png' %}" alt="" width="70%"><br>PlannerApp
         </div>
     </div>
 {% endblock %}
