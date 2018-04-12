@@ -159,5 +159,8 @@ TINYMCE_DEFAULT_CONFIG = {
     'font-size': '18px;'
 }
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 20 * 60
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
