@@ -218,7 +218,7 @@ class PlanningCreateView(LoginRequiredMixin, CreateView):
         if self.request.GET['continue'] == 'True':
             resolver = reverse_lazy('planning-edit', kwargs={'id_plan': plan})
         else:
-            resolver = reverse_lazy('planning', kwargs={'id_plan': plan})
+            resolver = reverse_lazy('index')
             messages.success(
                 self.request, 'Planificación actualizada correctamente.'
             )
@@ -246,7 +246,7 @@ class PlanningEditView(LoginRequiredMixin, UpdateView):
         if self.request.GET['continue'] == 'True':
             resolver = reverse_lazy('planning-edit', kwargs={'id_plan': plan})
         else:
-            resolver = reverse_lazy('planning', kwargs={'id_plan': plan})
+            resolver = reverse_lazy('index')
             messages.success(
                 self.request, 'Planificación actualizada correctamente.'
             )
