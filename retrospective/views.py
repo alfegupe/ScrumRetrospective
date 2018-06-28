@@ -248,7 +248,7 @@ class PlanningEditView(LoginRequiredMixin, UpdateView):
         else:
             resolver = reverse_lazy('index')
             messages.success(
-                self.request, 'Planificación actualizada correctamente.'
+                self.request, 'Planificación fue actualizada correctamente.'
             )
         return resolver
 
