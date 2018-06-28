@@ -38,6 +38,17 @@
         <script type="text/javascript" src="{% static 'js/clipboard.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-    {% endblock %}
+        <script type="text/javascript" src="{% static 'ckeditor/ckeditor.js' %}"></script>
+        <script>
+
+        // Replace the <textarea id="editor1"> with a CKEditor
+        // instance, using default configuration.
+        CKEDITOR.replace( 'editor1' );
+        </script>
+
+{% endblock %}
+{% block custom_js %}
+
+{% endblock %}
 </body>
 </html>
