@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import json
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.core.urlresolvers import reverse_lazy
@@ -207,10 +208,6 @@ class PlanningCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         try:
-            print self.request
-            messages.success(
-                self.request, 'Planificación guardada correctamente.'
-            )
             return super(PlanningCreateView, self).form_valid(form)
         except Exception as e:
             print e.message
@@ -218,7 +215,14 @@ class PlanningCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         plan = self.object.id
-        return reverse_lazy('planning', kwargs={'id_plan': plan})
+        if self.request.GET['continue'] == 'True':
+            resolver = reverse_lazy('planning-edit', kwargs={'id_plan': plan})
+        else:
+            resolver = reverse_lazy('planning', kwargs={'id_plan': plan})
+            messages.success(
+                self.request, 'Planificación actualizada correctamente.'
+            )
+        return resolver
 
 
 class PlanningEditView(LoginRequiredMixin, UpdateView):
@@ -231,9 +235,7 @@ class PlanningEditView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         try:
-            messages.success(
-                self.request, 'Planificación actualizada correctamente.'
-            )
+
             return super(PlanningEditView, self).form_valid(form)
         except Exception as e:
             print e.message
@@ -241,7 +243,14 @@ class PlanningEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         plan = self.object.id
-        return reverse_lazy('planning', kwargs={'id_plan': plan})
+        if self.request.GET['continue'] == 'True':
+            resolver = reverse_lazy('planning-edit', kwargs={'id_plan': plan})
+        else:
+            resolver = reverse_lazy('planning', kwargs={'id_plan': plan})
+            messages.success(
+                self.request, 'Planificación actualizada correctamente.'
+            )
+        return resolver
 
 
 class RetrospectiveCreateView(LoginRequiredMixin, CreateView):

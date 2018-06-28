@@ -7,14 +7,35 @@
     <h1>Crear planificación:</h1>
     <hr>
     <div class="content-bordered">
-        <form action="" method="post" novalidate>
+        <form id="create_planning" action="{% url 'planning-create'%}?continue=True" method="post" novalidate>
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" class="btn btn-primary" value="Guardar">
+            <br>
+            <input type="button" onclick="submit_planning(true)" class="btn btn-success btn-sm" value="Guardar y continuar">
+            <input type="button" onclick="submit_planning(false)" class="btn btn-primary btn-sm" value="Guardar y salir">
+            <a href="{% url 'index' %}" class="btn btn-default btn-sm">
+                Cancelar
+            </a>
         </form>
+
     </div>
     <hr>
-    <a href="{% url 'index' %}" class="btn btn-default btn-sm">
-        <i class="fa fa-reply"></i> Volver
-    </a>
+{% endblock %}
+
+{% block custom_js %}
+    <script type="text/javascript">
+
+        function submit_planning (continue_form){
+            var plannig_url = "{% url 'planning-create'%}";
+
+            if (continue_form){
+                $("#create_planning").attr('action',plannig_url + "?continue=True");
+            }
+            else {
+                 $("#create_planning").attr('action',plannig_url + "?continue=False");
+            }
+            $("#create_planning").submit();
+        }
+
+    </script>
 {% endblock %}
