@@ -220,7 +220,7 @@ class PlanningCreateView(LoginRequiredMixin, CreateView):
         else:
             resolver = reverse_lazy('index')
             messages.success(
-                self.request, 'Planificación fueactualizada correctamente.'
+                self.request, 'La planificación fue creada correctamente.'
             )
         return resolver
 
@@ -248,7 +248,7 @@ class PlanningEditView(LoginRequiredMixin, UpdateView):
         else:
             resolver = reverse_lazy('index')
             messages.success(
-                self.request, 'Planificación fue actualizada correctamente.'
+                self.request, 'La planificación fue actualizada correctamente.'
             )
         return resolver
 
