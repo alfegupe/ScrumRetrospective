@@ -16,9 +16,21 @@
         <div class="col-lg-8 col-md-8 col-sm-8 left-column">
             <h4>Datos de cierre del Sprint.</h4>
             <div class="content-bordered">
+                <div class="text-right" style="vertical-align: middle">
+                    <a href="{% url 'index' %}" class="btn btn-default btn-sm">
+                    <i class="fa fa-reply"></i> Volver
+                    </a>
+                    <a href="{% url 'sprint-edit' sprint.id %}" class="btn btn-primary btn-sm">Editar
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <button class="btn btn-default btn-sm clipboard" data-clipboard-text='{{ sprint.planning }}'>
+                        Copiar HTML <i class="fa fa-code" title="Copiar al portapapeles"></i>
+                    </button>
+                </div>
+
                 {{ sprint.planning|safe }}
             </div>
-            <hr>
+           {% comment %} <hr>
             {% if global_tasks %}
                 <h4>Tareas individuales <small style="font-size: small">Todos los usuarios</small></h4>
                 <div style="max-height: 500px; overflow: auto">
@@ -29,7 +41,7 @@
                         {{ global_tasks|safe }}
                     </div>
                 </div>
-            {% endif %}<br>
+            {% endif %}<br>{% endcomment %}
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
             {% if data %}
@@ -74,8 +86,11 @@
             {% endif %}
         </div>
     </div>
-    <hr>
+    <br>
     <a href="{% url 'index' %}" class="btn btn-default btn-sm">
         <i class="fa fa-reply"></i> Volver
+    </a>
+    <a href="{% url 'sprint-edit' sprint.id %}" class="btn btn-primary btn-sm">Editar
+        <i class="fa fa-edit"></i>
     </a>
 {% endblock %}
