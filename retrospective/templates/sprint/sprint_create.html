@@ -7,32 +7,15 @@
     <h1>Crear Sprint:</h1>
     <hr>
     <div class="content-bordered">
-        <form id="create_sprint" action="{% url 'sprint-create'%}?continue=True" method="post" novalidate>
+        <form action="" method="post" novalidate>
             {% csrf_token %}
-            {{ form.errors }}
            {{ form.as_p }}
-            <input type="button" onclick="submit_sprint(true)" class="btn btn-success btn-sm" value="Guardar y continuar">
-            <input type="button" onclick="submit_sprint(false)" class="btn btn-primary btn-sm" value="Guardar y salir">
-            <a href="{% url 'index' %}" class="btn btn-default btn-sm">
-                Cancelar
-            </a>
+            <input type="submit" class="btn btn-primary" value="Guardar">
         </form>
     </div>
-{% endblock %}
-{% block custom_js %}
-    <script type="text/javascript">
+    <hr>
+    <a href="{% url 'index' %}" class="btn btn-default btn-sm">
+        <i class="fa fa-reply"></i> Volver
+    </a>
 
-        function submit_sprint (continue_form){
-            var sprint_url = "{% url 'sprint-create'%}";
-
-            if (continue_form){
-                $("#create_sprint").attr('action',sprint_url + "?continue=True");
-            }
-            else {
-                 $("#create_sprint").attr('action',sprint_url + "?continue=False");
-            }
-            $("#create_sprint").submit();
-        }
-
-    </script>
 {% endblock %}
