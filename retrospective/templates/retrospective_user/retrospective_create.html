@@ -29,14 +29,8 @@
                 {% endif %}
                 {{ form.suggestions }}
             </div>
-            <div class="col-md-12">
-            <br>
-            <input class="btn btn-primary" type="submit" value="Guardar y salir" />
-            </div>
         </div>
         <hr>
-        <a href="{% url 'index' %}" class="btn btn-default btn-sm">
-        <i class="fa fa-reply"></i> Volver
-        </a>
+        <input class="btn btn-success" type="submit" value="Guardar" />
     </form>
 {% endblock %}
