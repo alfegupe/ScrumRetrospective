@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
     <h1>Crear planificación:</h1>
+    {% include 'includes/messages.html' %}
     <hr>
     <div class="content-bordered">
         <form id="create_planning" action="{% url 'planning-create'%}?continue=True" method="post" novalidate>

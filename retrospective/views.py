@@ -219,9 +219,9 @@ class PlanningCreateView(LoginRequiredMixin, CreateView):
             resolver = reverse_lazy('planning-edit', kwargs={'id_plan': plan})
         else:
             resolver = reverse_lazy('index')
-            messages.success(
-                self.request, 'La planificación fue creada correctamente.'
-            )
+        messages.success(
+            self.request, 'La planificación fue creada correctamente.'
+        )
         return resolver
 
 
@@ -246,9 +246,9 @@ class PlanningEditView(LoginRequiredMixin, UpdateView):
             resolver = reverse_lazy('planning-edit', kwargs={'id_plan': plan})
         else:
             resolver = reverse_lazy('index')
-            messages.success(
-                self.request, 'La planificación fue actualizada correctamente.'
-            )
+        messages.success(
+            self.request, 'La planificación fue actualizada correctamente.'
+        )
         return resolver
 
 
@@ -339,9 +339,9 @@ class SprintCreateView(LoginRequiredMixin, CreateView):
             resolver = reverse_lazy('sprint-edit', kwargs={'id_sprint': sprint})
         else:
             resolver = reverse_lazy('index')
-            messages.success(
-                self.request, 'Sprint fue Creado correctamente.'
-            )
+        messages.success(
+            self.request, 'Sprint fue Creado correctamente.'
+        )
         return resolver
 
 
@@ -366,9 +366,9 @@ class SprintEditView(LoginRequiredMixin, UpdateView):
             resolver = reverse_lazy('sprint-edit', kwargs={'id_sprint': sprint})
         else:
             resolver = reverse_lazy('index')
-            messages.success(
-                self.request, 'Sprint fue actualizado correctamente.'
-            )
+        messages.success(
+            self.request, 'Sprint fue actualizado correctamente.'
+        )
         return resolver
 
 

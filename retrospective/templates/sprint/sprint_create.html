@@ -5,6 +5,7 @@
 {% endblock %}
 {% block content %}
     <h1>Crear Sprint:</h1>
+     {% include 'includes/messages.html' %}
     <hr>
     <div class="content-bordered">
         <form id="create_sprint" action="{% url 'sprint-create'%}?continue=True" method="post" novalidate>
