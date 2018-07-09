@@ -7,33 +7,14 @@
     <h1>Editar Sprint: {{ sprint.name }}</h1>
     <hr>
     <div class="content-bordered">
-        <form id="create_sprint" action="{% url 'sprint-edit' sprint.pk %}?continue=True" method="post" novalidate>
+        <form action="" method="post" novalidate>
             {% csrf_token %}
             {{ form.as_p }}
-            {% comment %}<input type="submit" class="btn btn-primary" value="Guardar datos">{% endcomment %}
-            <input type="button" onclick="submit_sprint(true)" class="btn btn-success btn-sm" value="Guardar y continuar">
-            <input type="button" onclick="submit_sprint(false)" class="btn btn-primary btn-sm" value="Guardar y salir">
-            <a href="{% url 'index' %}" class="btn btn-default btn-sm">
-               Cancelar
-            </a>
+            <input type="submit" class="btn btn-primary" value="Guardar datos">
         </form>
     </div>
-{% endblock %}
-
-{% block custom_js %}
-    <script type="text/javascript">
-
-        function submit_sprint (continue_form){
-            var sprint_url = "{% url 'sprint-edit' sprint.pk %}";
-
-            if (continue_form){
-                $("#create_sprint").attr('action',sprint_url + "?continue=True");
-            }
-            else {
-                 $("#create_sprint").attr('action',sprint_url + "?continue=False");
-            }
-            $("#create_sprint").submit();
-        }
-
-    </script>
+    <hr>
+    <a href="{% url 'index' %}" class="btn btn-default btn-sm">
+        <i class="fa fa-reply"></i> Volver
+    </a>
 {% endblock %}
