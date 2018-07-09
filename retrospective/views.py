@@ -219,9 +219,9 @@ class PlanningCreateView(LoginRequiredMixin, CreateView):
             resolver = reverse_lazy('planning-edit', kwargs={'id_plan': plan})
         else:
             resolver = reverse_lazy('index')
-            messages.success(
-                self.request, 'La planificación fue creada correctamente.'
-            )
+        messages.success(
+            self.request, 'La planificación fue creada correctamente.'
+        )
         return resolver
 
 
@@ -247,9 +247,9 @@ class PlanningEditView(LoginRequiredMixin, UpdateView):
             resolver = reverse_lazy('planning-edit', kwargs={'id_plan': plan})
         else:
             resolver = reverse_lazy('index')
-            messages.success(
-                self.request, 'La planificación fue actualizada correctamente.'
-            )
+        messages.success(
+            self.request, 'La planificación fue actualizada correctamente.'
+        )
         return resolver
 
 
@@ -342,7 +342,16 @@ class SprintCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         sprint = self.object.id
-        return reverse_lazy('sprint', kwargs={'id_sprint': sprint})
+
+        if self.request.GET['continue'] == 'True':
+            resolver = reverse_lazy('sprint-edit', kwargs={'id_sprint': sprint})
+        else:
+            resolver = reverse_lazy('index')
+        messages.success(
+            self.request, 'Sprint fue Creado correctamente.'
+        )
+        return resolver
+
 
 
 class SprintEditView(LoginRequiredMixin, UpdateView):
@@ -365,7 +374,15 @@ class SprintEditView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         sprint = self.object.id
-        return reverse_lazy('sprint', kwargs={'id_sprint': sprint})
+        if self.request.GET['continue'] == 'True':
+            resolver = reverse_lazy('sprint-edit', kwargs={'id_sprint': sprint})
+        else:
+            resolver = reverse_lazy('index')
+        messages.success(
+            self.request, 'Sprint fue actualizado correctamente.'
+        )
+        return resolver
+
 
 
 class SprintTasksUserCreateView(LoginRequiredMixin, CreateView):
