@@ -235,7 +235,6 @@ class PlanningEditView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         try:
-
             return super(PlanningEditView, self).form_valid(form)
         except Exception as e:
             print e.message
@@ -332,9 +331,6 @@ class SprintCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         try:
-            messages.success(
-                self.request, 'Sprint creado correctamente.'
-            )
             return super(SprintCreateView, self).form_valid(form)
         except Exception as e:
             print e.message
@@ -342,7 +338,6 @@ class SprintCreateView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         sprint = self.object.id
-
         if self.request.GET['continue'] == 'True':
             resolver = reverse_lazy('sprint-edit', kwargs={'id_sprint': sprint})
         else:
@@ -351,7 +346,6 @@ class SprintCreateView(LoginRequiredMixin, CreateView):
             self.request, 'Sprint fue Creado correctamente.'
         )
         return resolver
-
 
 
 class SprintEditView(LoginRequiredMixin, UpdateView):
@@ -364,9 +358,6 @@ class SprintEditView(LoginRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         try:
-            messages.success(
-                self.request, 'Sprint actualizado correctamente.'
-            )
             return super(SprintEditView, self).form_valid(form)
         except Exception as e:
             print e.message
@@ -382,7 +373,6 @@ class SprintEditView(LoginRequiredMixin, UpdateView):
             self.request, 'Sprint fue actualizado correctamente.'
         )
         return resolver
-
 
 
 class SprintTasksUserCreateView(LoginRequiredMixin, CreateView):
