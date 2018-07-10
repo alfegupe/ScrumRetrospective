@@ -261,6 +261,9 @@ class RetrospectiveCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         try:
+            messages.success(
+                self.request, 'Retrospectiva guardada correctamente.'
+            )
             return super(RetrospectiveCreateView, self).form_valid(form)
         except Exception as e:
             print e.message
