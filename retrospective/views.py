@@ -343,7 +343,7 @@ class SprintCreateView(LoginRequiredMixin, CreateView):
         else:
             resolver = reverse_lazy('index')
         messages.success(
-            self.request, 'Sprint fue Creado correctamente.'
+            self.request, 'El sprint fue creado correctamente.'
         )
         return resolver
 
@@ -370,7 +370,7 @@ class SprintEditView(LoginRequiredMixin, UpdateView):
         else:
             resolver = reverse_lazy('index')
         messages.success(
-            self.request, 'Sprint fue actualizado correctamente.'
+            self.request, 'El sprint fue actualizado correctamente.'
         )
         return resolver
 
