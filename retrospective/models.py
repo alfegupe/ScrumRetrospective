@@ -14,6 +14,8 @@ class Sprint(models.Model):
     date_start = models.DateField()
     date_finish = models.DateField()
     planning = HTMLField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -22,6 +24,8 @@ class Sprint(models.Model):
 class Planning(models.Model):
     name = models.CharField(max_length=250)
     content = HTMLField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -33,6 +37,8 @@ class Planning(models.Model):
 
 class Retrospective(models.Model):
     name = models.CharField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -47,6 +53,8 @@ class RetrospectiveUser(models.Model):
     good = HTMLField()
     bad = HTMLField()
     suggestions = HTMLField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     class Meta:
         unique_together = (('retrospective', 'user'),)
@@ -60,6 +68,8 @@ class TaskSprintUser(models.Model):
     sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tasks = HTMLField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     class Meta:
         unique_together = (('sprint', 'user'),)

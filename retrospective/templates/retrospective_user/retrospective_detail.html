@@ -18,7 +18,7 @@
                                aria-expanded="false"
                                aria-controls="collapseOne">
                                 <strong>Retrospectiva {{ d.user }}</strong>
-                                {% if d.user == request.user and not request.user.groups.all%}
+                                {% if d.user == request.user and not request.user.groups.all %}
                                     <a href="{% url 'retrospective-user-edit' d.id %}?retro={{ retrospective.id }}"
                                        class="pull-right"> <i
                                             class="fa fa-edit"> Editar</i> </a>
@@ -29,6 +29,19 @@
                     <div id="{{ d.user }}" class="panel-collapse collapse"
                          role="tabpanel" aria-labelledby="{{ d.id }}">
                         <div class="panel-body">
+                            <div class="pull-right">
+                                {% if d.created_at %}
+                                    <small>
+                                        <b>Creacón:</b> {{ d.created_at }}
+                                    </small>
+                                {% endif %}
+                                 --
+                                {% if d.updated_at %}
+                                    <small>
+                                        <b>Última actualización:</b> {{ d.updated_at }}
+                                    </small>
+                                {% endif %}
+                            </div>
                             <p><strong>Lo bueno: </strong></p>
                             <div class="content-bordered">
                                 {{ d.good|safe }}
@@ -56,7 +69,7 @@
             {% for u in data_off %}
                 <li>
                     {{ u.first_name }} {{ u.last_name }}
-                    {% if u == request.user and not request.user.groups.all%}
+                    {% if u == request.user and not request.user.groups.all %}
                         <a href="{% url 'retrospective-user-create' retrospective.id %}?retro={{ retrospective.id }}"
                            class="btn btn-default btn-xs"> <i
                                 class="fa fa-plus-circle"></i> Registrar</a>

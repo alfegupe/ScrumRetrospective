@@ -35,6 +35,19 @@
                 </div>
 
                 {{ sprint.planning|safe }}
+                <div class="pull-right">
+                    {% if sprint.created_at %}
+                        <small>
+                            <b>Creacón:</b> {{ sprint.created_at }}
+                        </small> --
+                    {% endif %}
+
+                    {% if sprint.updated_at %}
+                        <small>
+                            <b>Última actualización:</b> {{ sprint.updated_at }}
+                        </small>
+                    {% endif %}
+                </div>
             </div>
             {% comment %} <hr>
             {% if global_tasks %}
@@ -84,7 +97,24 @@
                                 </button>
                                 <div class="panel-body"
                                      style="word-wrap: break-word;">
-                                    {{ d.tasks | safe }}
+                                    <div class="col-md-12">
+                                        {{ d.tasks | safe }}
+                                    </div>
+                                    <br/>
+                                    <div class="pull-right">
+                                        {% if d.created_at %}
+                                            <small>
+                                                <b>Creacón:</b> {{ d.created_at }}
+                                            </small> <br/>
+                                        {% endif %}
+
+                                        {% if d.updated_at %}
+                                            <small>
+                                                <b>Última
+                                                    actualización:</b> {{ d.updated_at }}
+                                            </small>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
