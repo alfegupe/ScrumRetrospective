@@ -11,9 +11,14 @@
         <div class="col-lg-4 col-md-4 col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a href="{% url 'planning-create' %}" style="color: #FFF; padding-top: 10px !important;" title="Crear">
-                        <i class="fa fa-plus-square fa-2x pull-right"></i>
-                    </a>
+                    {% if not request.user.groups.all %}
+                        <a href="{% url 'planning-create' %}"
+                           style="color: #FFF; padding-top: 10px !important;"
+                           title="Crear">
+                            <i class="fa fa-plus-square fa-2x pull-right"></i>
+                        </a>
+                    {% endif %}
+
                     <h4>
                         Planificaciones
                     </h4>
@@ -25,9 +30,13 @@
                                 <tr>
                                     <td>
                                         <a href="{% url 'planning' p.id %}">{{ p.name }}</a>
-                                        <a href="{% url 'planning-edit' p.id %}" class="pull-right" title="Editar">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
+                                        {% if not request.user.groups.all %}
+                                            <a href="{% url 'planning-edit' p.id %}"
+                                               class="pull-right"
+                                               title="Editar">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -43,9 +52,13 @@
         <div class="col-lg-4 col-md-4 col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a href="{% url 'retrospective-create' %}" style="color: #FFF; padding-top: 10px !important;" title="Crear">
-                        <i class="fa fa-plus-square fa-2x pull-right"></i>
-                    </a>
+                    {% if not request.user.groups.all %}
+                        <a href="{% url 'retrospective-create' %}"
+                           style="color: #FFF; padding-top: 10px !important;"
+                           title="Crear">
+                            <i class="fa fa-plus-square fa-2x pull-right"></i>
+                        </a>
+                    {% endif %}
                     <h4>
                         Retrospectivas
                     </h4>
@@ -57,9 +70,13 @@
                                 <tr>
                                     <td>
                                         <a href="{% url 'retrospective' id_retro=r.id %}">{{ r.name }}</a>
-                                        <a href="{% url 'retrospective-edit' r.id %}" class="pull-right" title="Editar">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
+                                        {% if not request.user.groups.all %}
+                                            <a href="{% url 'retrospective-edit' r.id %}"
+                                               class="pull-right"
+                                               title="Editar">
+                                                <i class="fa fa-edit"></i>
+                                            </a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -75,9 +92,13 @@
         <div class="col-lg-4 col-md-4 col-sm-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <a href="{% url 'sprint-create' %}" style="color: #FFF; padding-top: 10px !important;" title="Crear">
-                        <i class="fa fa-plus-square fa-2x pull-right"></i>
-                    </a>
+                    {% if not request.user.groups.all %}
+                        <a href="{% url 'sprint-create' %}"
+                           style="color: #FFF; padding-top: 10px !important;"
+                           title="Crear">
+                            <i class="fa fa-plus-square fa-2x pull-right"></i>
+                        </a>
+                    {% endif %}
                     <h4>
                         Sprints y tareas individuales
                     </h4>
@@ -91,13 +112,17 @@
                                         <a href="{% url 'sprint' id_sprint=s.id %}">
                                             {{ s.name }}
                                             <small style="color: #9d9d9d; font-size: x-small">
-                                                {{ s.date_start|date:"d/M/Y" }} - {{ s.date_finish|date:"d/M/Y" }}.
+                                                {{ s.date_start|date:"d/M/Y" }}
+                                                - {{ s.date_finish|date:"d/M/Y" }}.
                                             </small>
                                         </a>
                                         <div class="pull-right">
-                                            <a href="{% url 'sprint-edit' s.id %}" title="Editar">
-                                                <i class="fa fa-edit"></i>
-                                            </a>
+                                            {% if not request.user.groups.all %}
+                                                <a href="{% url 'sprint-edit' s.id %}"
+                                                   title="Editar">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                            {% endif %}
                                         </div>
                                     </td>
                                 </tr>

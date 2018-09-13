@@ -59,3 +59,5 @@ db.sqlite3
 docs/_build/
 backup_planner.bk
 
+retro/parameters.py
+

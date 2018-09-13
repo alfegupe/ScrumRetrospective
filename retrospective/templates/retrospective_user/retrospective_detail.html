@@ -7,29 +7,38 @@
     <h1>Retrospectiva: {{ retrospective.name }}</h1>
     {% include 'includes/messages.html' %}
     {% if data %}
-        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group" id="accordion" role="tablist"
+             aria-multiselectable="true">
             {% for d in data %}
                 <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="{{ d.id }}">
                         <h3 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ d.user }}" aria-expanded="false" aria-controls="collapseOne">
-                              <strong>Retrospectiva {{ d.user }}</strong>
-                                {% if d.user == request.user %}
-                                    <a href="{% url 'retrospective-user-edit' d.id %}?retro={{ retrospective.id }}" class="pull-right"> <i class="fa fa-edit"> Editar</i> </a>
+                            <a role="button" data-toggle="collapse"
+                               data-parent="#accordion" href="#{{ d.user }}"
+                               aria-expanded="false"
+                               aria-controls="collapseOne">
+                                <strong>Retrospectiva {{ d.user }}</strong>
+                                {% if d.user == request.user and not request.user.groups.all%}
+                                    <a href="{% url 'retrospective-user-edit' d.id %}?retro={{ retrospective.id }}"
+                                       class="pull-right"> <i
+                                            class="fa fa-edit"> Editar</i> </a>
                                 {% endif %}
                             </a>
                         </h3>
                     </div>
-                    <div id="{{ d.user }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{ d.id }}">
+                    <div id="{{ d.user }}" class="panel-collapse collapse"
+                         role="tabpanel" aria-labelledby="{{ d.id }}">
                         <div class="panel-body">
                             <p><strong>Lo bueno: </strong></p>
                             <div class="content-bordered">
                                 {{ d.good|safe }}
-                            </div><hr>
+                            </div>
+                            <hr>
                             <p><strong>Lo malo: </strong></p>
                             <div class="content-bordered">
                                 {{ d.bad|safe }}
-                            </div><hr>
+                            </div>
+                            <hr>
                             <p><strong>Sugerencias: </strong></p>
                             <div class="content-bordered">
                                 {{ d.suggestions|safe }}
@@ -47,8 +56,10 @@
             {% for u in data_off %}
                 <li>
                     {{ u.first_name }} {{ u.last_name }}
-                    {% if u == request.user %}
-                        <a href="{% url 'retrospective-user-create' retrospective.id %}?retro={{ retrospective.id }}" class="btn btn-default btn-xs"> <i class="fa fa-plus-circle"></i> Registrar</a>
+                    {% if u == request.user and not request.user.groups.all%}
+                        <a href="{% url 'retrospective-user-create' retrospective.id %}?retro={{ retrospective.id }}"
+                           class="btn btn-default btn-xs"> <i
+                                class="fa fa-plus-circle"></i> Registrar</a>
                     {% endif %}
                 </li>
             {% endfor %}

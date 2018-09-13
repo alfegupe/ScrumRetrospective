@@ -13,11 +13,16 @@
                 <a href="{% url 'index' %}" class="btn btn-default btn-sm">
                     <i class="fa fa-reply"></i> Volver
                 </a>
-                <a href="{% url 'planning-edit' planning.id %}" class="btn btn-primary btn-sm">
-                    <i class="fa fa-edit">Editar</i>
-                </a>
-                <button class="btn btn-default btn-sm clipboard" data-clipboard-text='{{ planning.content }}'>
-                    Copiar HTML <i class="fa fa-code" title="Copiar al portapapeles"></i>
+                {% if not request.user.groups.all %}
+                    <a href="{% url 'planning-edit' planning.id %}"
+                       class="btn btn-primary btn-sm">
+                        <i class="fa fa-edit">Editar</i>
+                    </a>
+                {% endif %}
+                <button class="btn btn-default btn-sm clipboard"
+                        data-clipboard-text='{{ planning.content }}'>
+                    Copiar HTML <i class="fa fa-code"
+                                   title="Copiar al portapapeles"></i>
                 </button>
             </div>
             {{ planning.content|safe }}
@@ -28,8 +33,11 @@
         <i class="fa fa-reply"></i> Volver
     </a>
 
-    <a href="{% url 'planning-edit' planning.id %}" class="btn btn-primary btn-sm">
-        <i class="fa fa-edit">Editar</i>
-    </a>
+    {% if not request.user.groups.all %}
+        <a href="{% url 'planning-edit' planning.id %}"
+           class="btn btn-primary btn-sm">
+            <i class="fa fa-edit">Editar</i>
+        </a>
+    {% endif %}
 
-    {% endblock %}
+{% endblock %}

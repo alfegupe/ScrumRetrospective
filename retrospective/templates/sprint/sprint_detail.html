@@ -7,7 +7,8 @@
     <h1>
         {{ sprint.name }}
         <small style="font-size: small">
-            <i class="fa fa-calendar"></i> {{ sprint.date_start }} - {{ sprint.date_finish }}.
+            <i class="fa fa-calendar"></i> {{ sprint.date_start }}
+            - {{ sprint.date_finish }}.
         </small>
     </h1>
     <hr>
@@ -18,19 +19,24 @@
             <div class="content-bordered">
                 <div class="text-right" style="vertical-align: middle">
                     <a href="{% url 'index' %}" class="btn btn-default btn-sm">
-                    <i class="fa fa-reply"></i> Volver
+                        <i class="fa fa-reply"></i> Volver
                     </a>
-                    <a href="{% url 'sprint-edit' sprint.id %}" class="btn btn-primary btn-sm">Editar
-                        <i class="fa fa-edit"></i>
-                    </a>
-                    <button class="btn btn-default btn-sm clipboard" data-clipboard-text='{{ sprint.planning }}'>
-                        Copiar HTML <i class="fa fa-code" title="Copiar al portapapeles"></i>
+                    {% if not request.user.groups.all %}
+                        <a href="{% url 'sprint-edit' sprint.id %}"
+                           class="btn btn-primary btn-sm">Editar
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    {% endif %}
+                    <button class="btn btn-default btn-sm clipboard"
+                            data-clipboard-text='{{ sprint.planning }}'>
+                        Copiar HTML <i class="fa fa-code"
+                                       title="Copiar al portapapeles"></i>
                     </button>
                 </div>
 
                 {{ sprint.planning|safe }}
             </div>
-           {% comment %} <hr>
+            {% comment %} <hr>
             {% if global_tasks %}
                 <h4>Tareas individuales <small style="font-size: small">Todos los usuarios</small></h4>
                 <div style="max-height: 500px; overflow: auto">
@@ -45,24 +51,39 @@
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
             {% if data %}
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel-group" id="accordion" role="tablist"
+                     aria-multiselectable="true">
                     {% for d in data %}
                         <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="{{ d.id }}">
+                            <div class="panel-heading" role="tab"
+                                 id="{{ d.id }}">
                                 <h3 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{ d.user }}" aria-expanded="false" aria-controls="collapseOne">
-                                      <strong>Tareas individuales {{ d.user }}</strong>
+                                    <a role="button" data-toggle="collapse"
+                                       data-parent="#accordion"
+                                       href="#{{ d.user }}"
+                                       aria-expanded="false"
+                                       aria-controls="collapseOne">
+                                        <strong>Tareas
+                                            individuales {{ d.user }}</strong>
                                         {% if d.user == request.user %}
-                                            <a href="{% url 'sprint-tasks-user-edit' d.id %}?sprint={{ sprint.id }}" class="pull-right"> <i class="fa fa-edit"> Editar</i> </a>
+                                            <a href="{% url 'sprint-tasks-user-edit' d.id %}?sprint={{ sprint.id }}"
+                                               class="pull-right"> <i
+                                                    class="fa fa-edit">
+                                                Editar</i> </a>
                                         {% endif %}
                                     </a>
                                 </h3>
                             </div>
-                            <div id="{{ d.user }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{ d.id }}">
-                                <button class="btn btn-default btn-sm pull-right clipboard" data-clipboard-text='{{ d.tasks }}'>
-                                    Copiar HTML <i class="fa fa-code" title="Copiar al portapapeles"></i>
+                            <div id="{{ d.user }}"
+                                 class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="{{ d.id }}">
+                                <button class="btn btn-default btn-sm pull-right clipboard"
+                                        data-clipboard-text='{{ d.tasks }}'>
+                                    Copiar HTML <i class="fa fa-code"
+                                                   title="Copiar al portapapeles"></i>
                                 </button>
-                                <div class="panel-body" style="word-wrap: break-word;">
+                                <div class="panel-body"
+                                     style="word-wrap: break-word;">
                                     {{ d.tasks | safe }}
                                 </div>
                             </div>
@@ -77,8 +98,10 @@
                     {% for u in data_off %}
                         <li>
                             {{ u.first_name }} {{ u.last_name }}
-                            {% if u == request.user %}
-                                <a href="{% url 'sprint-tasks-user-create' sprint.id %}?sprint={{ sprint.id }}" class="btn btn-default btn-xs"> <i class="fa fa-plus-circle"></i> Registrar</a>
+                            {% if u == request.user and not request.user.groups.all %}
+                                <a href="{% url 'sprint-tasks-user-create' sprint.id %}?sprint={{ sprint.id }}"
+                                   class="btn btn-default btn-xs"> <i
+                                        class="fa fa-plus-circle"></i> Registrar</a>
                             {% endif %}
                         </li>
                     {% endfor %}
@@ -90,7 +113,10 @@
     <a href="{% url 'index' %}" class="btn btn-default btn-sm">
         <i class="fa fa-reply"></i> Volver
     </a>
-    <a href="{% url 'sprint-edit' sprint.id %}" class="btn btn-primary btn-sm">Editar
-        <i class="fa fa-edit"></i>
-    </a>
+    {% if not request.user.groups.all %}
+        <a href="{% url 'sprint-edit' sprint.id %}"
+           class="btn btn-primary btn-sm">Editar
+            <i class="fa fa-edit"></i>
+        </a>
+    {% endif %}
 {% endblock %}
