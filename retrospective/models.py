@@ -24,6 +24,7 @@ class Sprint(models.Model):
 class Planning(models.Model):
     name = models.CharField(max_length=250)
     content = HTMLField()
+    user = models.ForeignKey(User, null=True, blank=True, default=15)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 

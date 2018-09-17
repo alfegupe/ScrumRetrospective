@@ -27,6 +27,11 @@
             </div>
             {{ planning.content|safe }}
             <br/>
+            {% if planning.user %}
+                <small>
+                    <b>Usuario:</b> {{ planning.user }}
+                </small>
+            {% endif %}
             {% if planning.created_at %}
                 <small>
                     <b>Creación:</b> {{ planning.created_at }}
